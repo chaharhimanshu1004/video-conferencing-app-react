@@ -33,14 +33,12 @@ server.listen(port, () => {
 io.on('connection', (socket) => {
   console.log(`Socket connected: ${socket.id}`);
 
-  socket.on('join-room', (roomId, userId) => {
-    console.log(`User ${userId} joined room ${roomId}`);
+  socket.on('join-room',(roomId,userId)=>{
+    console.log(`a user ${userId} joined the room ${roomId} `);
     socket.join(roomId);
-    socket.to(roomId).emit('user-connected', userId);
+    socket.broadcast.to(roomId).emit('user-connected',userId); // user connected msg to everyone in the room except myself
+  })
 
-    socket.on('disconnect', () => {
-      console.log(`User ${userId} disconnected`);
-      socket.to(roomId).emit('user-disconnected', userId);
-    });
-  });
+
+  
 });
