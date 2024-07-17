@@ -3,11 +3,14 @@ import React, { useEffect } from 'react';
 import { useSocket } from './context/SocketContext';
 import usePeer from './hooks/usePeer';
 import { useParams } from 'react-router-dom';
+import useMediaStream from './hooks/useMediaStream';
+import Player from './components/Player/Player';
 
 const Room = () => {
     const { roomId } = useParams();
     const socket = useSocket();
     const { peer, myId } = usePeer();
+    const { stream } = useMediaStream();
 
   useEffect(() => {
     if (socket) {
@@ -36,10 +39,7 @@ const Room = () => {
 
   return (
     <div>
-      <h1>Room</h1>
-      <p>Room ID: {roomId}</p>
-      <p>Your Socket ID: {socket?.id}</p>
-      <p>Your Peer ID: {myId}</p>
+      {stream && <Player url={stream} muted playing playerId={myId} />}
     </div>
   );
 };
