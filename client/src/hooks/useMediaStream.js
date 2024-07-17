@@ -10,7 +10,6 @@ const useMediaStream = () => {
           audio: true,
           video: true,
         });
-        console.log("Setting your stream");
         setStream(mediaStream);
       } catch (error) {
         console.error("Error in media Navigator", error);
