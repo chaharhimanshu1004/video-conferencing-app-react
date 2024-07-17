@@ -12,7 +12,7 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const connection = io("http://localhost:4000"); 
+        const connection = io("http://localhost:4100"); 
         console.log("Socket connection established", connection);
         setSocket(connection);
 
