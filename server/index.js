@@ -27,6 +27,22 @@ if (!server.io) {
       socket.join(roomId);
       socket.broadcast.to(roomId).emit('user-connected', userId);
     });
+    socket.on("user-toggle-audio",(userId,roomId)=>{
+      console.log(`user ${userId} toggled audio`);
+      socket.broadcast.to(roomId).emit("user-toggled-audio",userId);
+    })
+    socket.on("user-toggle-video",(userId,roomId)=>{
+        console.log(`user ${userId} toggled video`);
+        socket.broadcast.to(roomId).emit("user-toggled-video",userId);
+    })
+    socket.on("user-leave",(userId,roomId)=>{
+        console.log(`user ${userId} toggled video`);
+        socket.broadcast.to(roomId).emit("user-leave",userId);
+    })
+    socket.on('disconnect', () => {
+      console.log(`Socket disconnected: ${socket.id}`);
+      socket.broadcast.emit('user-disconnected', socket.id);
+    });
   });
 
   console.log('Socket server initialized');

@@ -21,7 +21,8 @@ const usePeer = () => {
         const myPeer = new Peer(undefined, {
             host: 'localhost',  
             port: 4100,
-            path: '/peerjs/myapp'
+            path: '/peerjs/myapp',
+            // secure: true
         });
       
         setPeer(myPeer);

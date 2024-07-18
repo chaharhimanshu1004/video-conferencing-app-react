@@ -1,15 +1,41 @@
 // src/components/Player.js
-import React from 'react';
-import ReactPlayer from 'react-player';
+import React from "react";
+import ReactPlayer from "react-player";
+import styles from "./Player.module.css";
+import cx from "classnames";
+import { Mic, MicOff, UserSquare2 } from "lucide-react";
 
 const Player = (props) => {
-  const { url, muted, playing } = props;
-  
+  const { url, muted, playing, isHighlighted } = props;
+
   return (
-    <div>
-      <ReactPlayer url={url} muted={muted} playing={playing} />
+    <div
+      className={cx(styles.playerContainer, {
+        [styles.notActive]: !isHighlighted,
+        [styles.active]: isHighlighted,
+        [styles.notPlaying]: !playing,
+      })}
+    >
+      {playing ? (
+        <ReactPlayer
+          url={url}
+          muted={muted}
+          playing={playing}
+          width="100%"
+          height="100%"
+        />
+      ) : (
+        <UserSquare2 className={styles.user} size={isHighlighted ? 400 : 150} />
+      )}
+      {!isHighlighted ? (
+        muted ? (
+          <MicOff className={styles.icon} size={20} />
+        ) : (
+          <Mic className={styles.icon} size={20} />
+        )
+      ) : undefined}
     </div>
   );
-}
+};
 
 export default Player;
